@@ -20,7 +20,7 @@ module Wowaddon
       json = convert_to_json file
       write_to_database json
       save_database_timestamp
-      puts " done."
+      puts " done.\n\n"
     end
 
     private
@@ -44,7 +44,9 @@ module Wowaddon
     def write_to_memory_database(json)
       prepare_memory_database
       json.each do |row|
-        TempPackage.create name: row['Name'], version: row['LatestFiles'][0]['FileName']
+        TempPackage.create name: row['Name'],
+                           summary: row['Summary'],
+                           version: row['LatestFiles'][0]['FileName']
       end
     end
 
@@ -54,6 +56,7 @@ module Wowaddon
       ActiveRecord::Schema.define do
         create_table :packages do |t|
           t.text :name, collation: 'NOCASE'
+          t.text :summary, collation: 'NOCASE'
           t.text :version
         end
       end
