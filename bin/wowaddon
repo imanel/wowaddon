@@ -1,5 +1,30 @@
 #!/usr/bin/env ruby
 
+require 'gli'
 require 'wowaddon'
 
-Wowaddon::DatabaseDownloader.new.download
+include GLI::App
+
+program_desc 'World of Warcraft package manager'
+
+version Wowaddon::VERSION
+
+switch :update, default_value: false, desc: 'Force database update'
+
+desc 'Search for package'
+arg_name '[package name]'
+command :search do |c|
+  c.action do |global_options,options,args|
+    return if args.empty?
+    Wowaddon::Package.where("name LIKE ?", "%#{args.join " "}%").each do |package|
+      puts package.inspect
+    end
+  end
+end
+
+pre do |global,command,options,args|
+  Wowaddon::DatabaseDownloader.new.download global[:update]
+  true
+end
+
+exit run(ARGV)

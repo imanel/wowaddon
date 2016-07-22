@@ -9,8 +9,8 @@ Gem::Specification.new do |spec|
   spec.authors       = ["Bernard Potocki"]
   spec.email         = ["bernard.potocki@imanel.org"]
 
-  spec.summary       = %q{Simple gem to manage World of Warcraft packages.}
-  spec.description   = %q{Simple gem to manage World of Warcraft packages.}
+  spec.summary       = %q{World of Warcraft package manager}
+  spec.description   = %q{World of Warcraft package manager}
   spec.homepage      = "https://github.com/imanel/wowaddon"
   spec.license       = "MIT"
 
@@ -20,5 +20,6 @@ Gem::Specification.new do |spec|
 
   spec.add_dependency('activerecord', '~> 5.0')
   spec.add_dependency('bzip2-ffi', '~> 1.0.0')
+  spec.add_dependency('gli', '~> 2.14.0')
   spec.add_dependency('sqlite3', '~> 1.3.11')
 end
