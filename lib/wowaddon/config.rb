@@ -42,7 +42,8 @@ module Wowaddon
 
     def default_config
       {
-        database: File.join(dir, 'database.sqlite3')
+        addons_dir: File.join('/', 'Applications', 'World of Warcraft', 'Interface', 'AddOns'),
+        database_file: File.join(dir, 'database.sqlite3')
       }
     end
 

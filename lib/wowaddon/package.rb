@@ -2,6 +2,6 @@ require 'active_record'
 
 module Wowaddon
   class Package < ActiveRecord::Base
-    establish_connection adapter: 'sqlite3', database: Wowaddon.config.database
+    establish_connection adapter: 'sqlite3', database: Wowaddon.config.database_file
   end
 end
