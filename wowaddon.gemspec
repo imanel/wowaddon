@@ -19,5 +19,6 @@ Gem::Specification.new do |spec|
   spec.require_paths = ["lib"]
 
   spec.add_dependency('activerecord', '~> 5.0')
+  spec.add_dependency('bzip2-ffi', '~> 1.0.0')
   spec.add_dependency('sqlite3', '~> 1.3.11')
 end

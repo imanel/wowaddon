@@ -1,3 +1,5 @@
 #!/usr/bin/env ruby
 
 require 'wowaddon'
+
+Wowaddon::DatabaseDownloader.new.download

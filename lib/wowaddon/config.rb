@@ -7,7 +7,9 @@ module Wowaddon
     end
 
     def data
-      @data ||= OpenStruct.new JSON.parse(File.read(file))
+      return @data if defined? @data
+      raw_data = JSON.parse(File.read(file)) rescue default_config
+      @data = OpenStruct.new raw_data
     end
 
     def dir
@@ -22,6 +24,11 @@ module Wowaddon
       File.open(file, 'w') {|f| f.write(JSON.pretty_generate(data.to_h)) }
     end
 
+    def update(field, value)
+      @data[field] = value
+      save
+    end
+
     private
 
     def config_exists?
@@ -29,8 +36,18 @@ module Wowaddon
     end
 
     def create_config
-      Dir.mkdir dir
-      File.open(file, 'w') {|f| f.write("{}") }
+      FileUtils.mkdir_p dir
+      save
+    end
+
+    def default_config
+      {
+        database: File.join(dir, 'database.sqlite3')
+      }
+    end
+
+    def method_missing(method, *args, &block)
+      data.send(method, *args, &block)
     end
   end
 end
