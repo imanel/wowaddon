@@ -11,6 +11,14 @@ version Wowaddon::VERSION
 
 switch :update, default_value: false, desc: 'Force database update'
 
+desc 'Show config file'
+command :config do |c|
+  c.action do |global_options,options,args|
+    puts "Location: #{Wowaddon.config.file}"
+    system "cat #{Wowaddon.config.file}"
+  end
+end
+
 desc 'Search for package'
 arg_name '[package name]'
 command :search do |c|
