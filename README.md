@@ -1,5 +1,7 @@
 # Wowaddon
 
+[![Build Status](https://travis-ci.org/imanel/wowaddon.svg?branch=master)](https://travis-ci.org/imanel/wowaddon)
+
 Simple gem to manage World of Warcraft packages
 
 ## Installation
