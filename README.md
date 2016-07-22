@@ -8,7 +8,7 @@ Simple gem to manage World of Warcraft packages
 
 ## Usage
 
-TODO: Write usage instructions here
+Not usable yet. Please wait for release on RubyGems.
 
 ## License
 
