@@ -44,9 +44,10 @@ module Wowaddon
     def write_to_memory_database(json)
       prepare_memory_database
       json.each do |row|
-        TempPackage.create name: row['Name'],
-                           summary: row['Summary'],
-                           version: row['LatestFiles'][0]['FileName']
+        TempPackage.create  curse_id: row['WebSiteURL'].split('/').last,
+                            name: row['Name'],
+                            summary: row['Summary'],
+                            version: row['LatestFiles'][0]['FileName']
       end
     end
 
@@ -55,6 +56,7 @@ module Wowaddon
       ActiveRecord::Base.establish_connection adapter: 'sqlite3', database: ':memory:'
       ActiveRecord::Schema.define do
         create_table :packages do |t|
+          t.string :curse_id, collation: 'NOCASE'
           t.text :name, collation: 'NOCASE'
           t.text :summary, collation: 'NOCASE'
           t.text :version

@@ -19,14 +19,36 @@ command :config do |c|
   end
 end
 
+desc 'Info about package'
+arg_name '[package name]'
+command :info do |c|
+  c.action do |global_options,options,args|
+    package_name = args.first
+    package = Wowaddon::Package.where(curse_id: package_name).first
+    if package.nil?
+      puts("Package '#{package_name}' not found")
+    else
+      puts <<-EOF.gsub /^\s+/, ""
+        Package: #{package.curse_id}
+        Full Name: #{package.name}
+        Version: #{package.version}
+        Summary: #{package.summary}
+      EOF
+    end
+  end
+end
+
+
 desc 'Search for package'
 arg_name '[package name]'
 command :search do |c|
   c.action do |global_options,options,args|
-    return if args.empty?
-    Wowaddon::Package.where("name LIKE ?", "%#{args.join " "}%").order(:name).each do |package|
-      puts [package.name, package.summary].join " - "
+    search_term = args.join " "
+    results = Wowaddon::Package.where("curse_id LIKE :name OR name LIKE :name", name: "%#{search_term}%").order(:curse_id)
+    results.each do |package|
+      puts [package.curse_id, package.summary].join " - "
     end
+    puts "No results for '#{search_term}' found." if results.empty?
   end
 end
 
