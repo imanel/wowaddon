@@ -8,8 +8,8 @@ module Wowaddon
 
     def data
       return @data if defined? @data
-      raw_data = JSON.parse(File.read(file)) rescue default_config
-      @data = OpenStruct.new raw_data
+      raw_data = JSON.parse(File.read(file)) rescue {}
+      @data = OpenStruct.new default_config.merge(raw_data)
     end
 
     def dir
