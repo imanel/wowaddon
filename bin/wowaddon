@@ -33,6 +33,7 @@ command :info do |c|
         Full Name: #{package.name}
         Version: #{package.version}
         Summary: #{package.summary}
+        Changelog:\n#{package.changelog}
       EOF
     end
   end
